@@ -1,0 +1,47 @@
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2" routerLink="/alumnos">Volver</button>
+
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" [(ngModel)]="entity.nombre" class="form-control" id="nombre" />
+                <div class="alert alert-danger my-2" *ngIf="error?.nombre">
+                    {{error.nombre}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" [(ngModel)]="entity.apellido" class="form-control" id="apellido" />
+                <div class="alert alert-danger my-2" *ngIf="error?.apellido">
+                    {{error.apellido}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" [(ngModel)]="entity.email" class="form-control" id="email" />
+                <div class="alert alert-danger my-2" *ngIf="error?.email">
+                    {{error.email}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="mb-3 my-3">
+
+                    <input class="form-control" type="file" id="archivo" (change)="seleccionarFoto($event)">
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <button type="button" class="btn btn-primary my-2" (click)="entity.id?editar():crear()">
+                {{entity.id?'Editar':'Crear'}}
+            </button>
+            </div>
+
+        </form>
+
+
+
+    </div>
+</div>
