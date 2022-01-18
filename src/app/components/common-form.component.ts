@@ -20,6 +20,8 @@ export abstract class CommonFormComponent<E extends Generic,S extends CommonServ
 
   protected nombreModel:string="";
 
+  progressBar:boolean=false;
+
 
   constructor(protected service:S, protected router:Router,
     protected activated:ActivatedRoute) { }
@@ -30,7 +32,10 @@ export abstract class CommonFormComponent<E extends Generic,S extends CommonServ
       //El signo de admiracion es por si viene nulo alguna variable que confie que si va a ver un valor
       const id:number= +params.get('id')!;
       if(id){
-        this.service.ver(id).subscribe(entity=>this.entity=entity);
+        this.service.ver(id).subscribe(entity=> {
+          this.entity=entity;
+          this.titulo='Editar '+this.nombreModel; 
+        });
       }
     });
 
@@ -43,6 +48,7 @@ export abstract class CommonFormComponent<E extends Generic,S extends CommonServ
    * Metodo para crear el alumno;
    */
   crear():void{
+    this.progressBar=true;
     this.service.crear(this.entity).subscribe(e=>{
         console.log(e);
         Swal.fire('Nuevo:',`${this.nombreModel} ${e.nombre} creado con éxito`,'success');
@@ -52,11 +58,13 @@ export abstract class CommonFormComponent<E extends Generic,S extends CommonServ
         this.error=err.error;
         console.log(this.error);
       }
+      this.progressBar=false;
     });
   }
 
 
   editar():void{
+    this.progressBar=true;
       this.service.editar(this.entity).subscribe(e=>{
         console.log(e);
         Swal.fire('Modificado:',`${this.nombreModel} ${e.nombre} modificado con éxito`,'success');
@@ -67,6 +75,7 @@ export abstract class CommonFormComponent<E extends Generic,S extends CommonServ
         console.log(this.error);
       }
     });
+    this.progressBar=true;
   }
   
 

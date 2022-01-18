@@ -1,1 +1,50 @@
-<p>cursos works!</p>
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/cursos/form">Registrar</button>
+        <div class="alert alert-info" *ngIf="lista.length==0">No hay cursos en el sistema</div>
+        <table class="table  table-hover table-striped " *ngIf="lista.length>0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Alumnos</th>
+                    <th>Examenes</th>
+                    <th>Fecha Creado</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let curso of lista ">
+                    <td>{{curso.id}}</td>
+                    <td>{{curso.nombre | uppercase}}</td>
+                    <td><button class="btn btn-outline-primary btn-sm" [routerLink]="['/cursos/asignar-alumnos/',curso.id]">
+                        añadir ({{curso.alumnos.length}})
+                    </button></td>
+                    <td><button class="btn btn-outline-primary btn-sm" [routerLink]="['/cursos/asignar-examenes/',curso.id]">
+                        añadir ({{curso.examenes.length}})
+                    </button></td>
+
+                    <td>{{curso.createAt | date: 'yyyy/MM/dd'}}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" [routerLink]="['/cursos/form',curso.id]"><i class="bi-alarm"></i>Editar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" (click)="eliminar(curso)">Eliminar</button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <!--Tabla con paginacion de angular material-->
+        <mat-paginator [length]="totalRegistros" [pageSize]="totalPorPagina" [pageIndex]="paginaActual" [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="paginar($event)" showFirstLastButtons class="float-left mx-2">
+        </mat-paginator>
+
+        <mat-progress-bar mode="indeterminate" *ngIf="progressBarPaginador"></mat-progress-bar>
+
+    </div>
+</div>

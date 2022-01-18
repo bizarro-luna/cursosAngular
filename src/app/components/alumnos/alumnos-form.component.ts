@@ -55,7 +55,7 @@ export class AlumnosFormComponent extends CommonFormComponent<Alumno,AlumnoServi
       super.crear(); 
     }
     else{
-    
+      this.progressBar=true;
       this.service.crearConFoto(this.entity,this.fotoSeleccionada).subscribe(alumno=>{
         console.log(alumno);
         Swal.fire('Nuevo:',`${this.nombreModel} ${alumno.nombre} creado con éxito`,'success');
@@ -66,7 +66,7 @@ export class AlumnosFormComponent extends CommonFormComponent<Alumno,AlumnoServi
           console.log(this.error);
         }
       });
-
+      this.progressBar=false;
 
     }
 
@@ -81,6 +81,7 @@ export class AlumnosFormComponent extends CommonFormComponent<Alumno,AlumnoServi
       super.editar();
     }
     else{
+      this.progressBar=true;
       this.service.editarConFoto(this.entity,this.fotoSeleccionada).subscribe(alumno=>{
         console.log(alumno);
         Swal.fire('Modificado:',`${this.nombreModel} ${alumno.nombre} actualizado con éxito`,'success');
@@ -91,7 +92,7 @@ export class AlumnosFormComponent extends CommonFormComponent<Alumno,AlumnoServi
           console.log(this.error);
         }
       });
-
+      this.progressBar=false;
 
     }
 

@@ -13,6 +13,7 @@ export abstract class CommonListarComponent <E extends Generic,S extends CommonS
 
   protected nombreModel!:string;
 
+  progressBarPaginador=false;
   
 
   /**
@@ -33,18 +34,19 @@ export abstract class CommonListarComponent <E extends Generic,S extends CommonS
   constructor(protected service:S) { }
 
   ngOnInit(): void {
-
+    this.progressBarPaginador=true;
      this.paginador();
+     this.progressBarPaginador=false;
     //this.alumnoService.listar().subscribe(alumnos=> this.listaAlumnos= alumnos);
 
   }
 
   paginar(event:PageEvent):void{
-    
+    this.progressBarPaginador=true;
     this.paginaActual=event.pageIndex;
     this.totalPorPagina=event.pageSize;
     this.paginador();
-
+    this.progressBarPaginador=false;
   }
 
 
@@ -89,6 +91,7 @@ export abstract class CommonListarComponent <E extends Generic,S extends CommonS
         this.paginator._intl.nextPageLabel='Siguiente página';
         this.paginator._intl.previousPageLabel='Anterior página';
         this.paginator._intl.firstPageLabel='Primera página';
+        
   
       });
     }
